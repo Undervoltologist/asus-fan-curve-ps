@@ -13,3 +13,5 @@ you can adjust and add temp thresholds and fan speeds in the powershell script.
 
 # compatibility
 if your asus laptop has a fan health test in the myasus app, this will probably work.
+
+![image](https://github.com/Undervoltologist/asus-fan-curve-ps/assets/93976452/1cbdc530-a477-4210-991e-a4efed3daaed)
