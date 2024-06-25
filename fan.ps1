@@ -3,7 +3,7 @@ $tripPoints = @(
     @{ temp = 40; speed = 0 },
     @{ temp = 48; speed = 22 },
     @{ temp = 55; speed = 40 },
-    @{ temp = 60; speed = 55 },
+    @{ temp = 64; speed = 55 },
     @{ temp = 77; speed = 80 },
     @{ temp = 86; speed = 100 }
 )
@@ -61,11 +61,13 @@ while ($true) {
         Write-Output "Fan speeds: $($fanSpeeds[0]) RPM, $($fanSpeeds[1]) RPM"
     }
 
-    # wait for 3 sec before the next check
-    Start-Sleep -Seconds 3
+    # wait for 3 secs before the next check
+    Start-Sleep -Seconds 2
 
+    # set fan speed
     Set-FanSpeeds -speed $fanSpeed
 
-    # wait extra 2 secs so setting fan speed has a delay
-    Start-Sleep -Seconds 2
+    # wait for 1 sec
+    Start-Sleep -Seconds 1
+
 }
