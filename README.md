@@ -11,5 +11,5 @@ i may add new features that are useless in the future.
 extract the zip and run the bat file inside it, doesn't need admin.
 you can adjust and add temp thresholds and fan speeds in the powershell script.
 
-#compatibility
+# compatibility
 if your asus laptop has a fan health test in the myasus app, this will probably work.
