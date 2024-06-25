@@ -1,5 +1,5 @@
 # asus-fan-curve-ps
-powershell script for setting a fan curve for asus laptops that don't have modes
+powershell script for setting a fan curve for asus laptops that don't have modes (can also work with the ones that have modes)
 
 # why
 made using the fan control application at https://github.com/Karmel0x/AsusFanControl, since the author didn't need 
