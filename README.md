@@ -2,7 +2,7 @@
 powershell script for setting a fan curve for asus laptops that don't have modes
 
 # why
-Made using the fan control application at https://github.com/Karmel0x/AsusFanControl, since the author didn't need 
+made using the fan control application at https://github.com/Karmel0x/AsusFanControl, since the author didn't need 
 fan curves but I did.
 
 # usage
