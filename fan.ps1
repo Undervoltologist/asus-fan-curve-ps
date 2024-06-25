@@ -1,11 +1,10 @@
 # fan curve
 $tripPoints = @(
-    @{ temp = 40; speed = 0 },
-    @{ temp = 48; speed = 22 },
-    @{ temp = 55; speed = 40 },
-    @{ temp = 64; speed = 55 },
-    @{ temp = 77; speed = 80 },
-    @{ temp = 86; speed = 100 }
+    @{ temp = 20; speed = 22 },
+    @{ temp = 60; speed = 40 },
+    @{ temp = 70; speed = 55 },
+    @{ temp = 80; speed = 80 },
+    @{ temp = 88; speed = 100 }
 )
 
 # getting CPU temp
@@ -67,7 +66,7 @@ while ($true) {
     # set fan speed
     Set-FanSpeeds -speed $fanSpeed
 
-    # wait for 1 sec
-    Start-Sleep -Seconds 1
+    # wait for 3 sec fan delay
+    Start-Sleep -Seconds 3
 
 }
