@@ -10,7 +10,24 @@ i may add new features that are useless in the future.
 # usage
 extract the zip and run the bat file inside it, doesn't need admin.
 
-you can adjust and add temp thresholds and fan speeds in the powershell script.
+you can adjust and add temp thresholds and fan speeds in the powershell script:
+```
+# Fan Curve
+$tripPoints = @(
+    @{ temp = 20; speed = 22 },
+    @{ temp = 60; speed = 40 },
+    @{ temp = 70; speed = 55 },
+    @{ temp = 80; speed = 80 },
+    @{ temp = 88; speed = 100 }
+)
+
+# Acceleration factor
+$accelerationFactor = 6
+
+# Adjustable delay for ramping up and slowing down (in seconds)
+$rampUpDelay = 0
+$rampDownDelay = 4
+```
 
 (only reacts to CPU temp)
 
