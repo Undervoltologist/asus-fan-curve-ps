@@ -22,11 +22,11 @@ $tripPoints = @(
 )
 
 # Acceleration factor
-$accelerationFactor = 6
+$accelerationFactor = 7
 
 # Adjustable delay for ramping up and slowing down (in seconds)
 $rampUpDelay = 0
-$rampDownDelay = 4
+$rampDownDelay = 4.5
 ```
 
 (only reacts to CPU temp)
