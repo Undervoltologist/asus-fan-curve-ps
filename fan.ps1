@@ -1,4 +1,4 @@
-# fan curve
+# Fan Curve
 $tripPoints = @(
     @{ temp = 20; speed = 22 },
     @{ temp = 60; speed = 40 },
@@ -7,7 +7,14 @@ $tripPoints = @(
     @{ temp = 88; speed = 100 }
 )
 
-# getting CPU temp
+# Acceleration factor
+$accelerationFactor = 7
+
+# Adjustable delay for ramping up and slowing down (in seconds)
+$rampUpDelay = 0
+$rampDownDelay = 4.5
+
+# Getting CPU temp
 function Get-CPUTemp {
     $output = .\AsusFanControl.exe --get-cpu-temp
     if ($output -match "Current CPU temp: (\d+)") {
@@ -16,7 +23,7 @@ function Get-CPUTemp {
     return $null
 }
 
-# getting fan speed
+# Getting fan speed
 function Get-FanSpeeds {
     $output = .\AsusFanControl.exe --get-fan-speeds
     if ($output -match "Current fan speeds: (\d+) (\d+) RPM") {
@@ -25,15 +32,16 @@ function Get-FanSpeeds {
     return $null
 }
 
-# setting fan speed
+# Setting fan speed
 function Set-FanSpeeds {
     param ($speed)
     .\AsusFanControl.exe --set-fan-speeds=$speed
 }
 
-# fan curve loop
+# Fan curve loop
+$currentFanSpeed = 0
 while ($true) {
-    # get the current CPU temp
+    # Get the current CPU temp
     $cpuTemp = Get-CPUTemp
     if ($cpuTemp -eq $null) {
         Write-Output "Failed to get CPU temperature."
@@ -41,18 +49,18 @@ while ($true) {
         continue
     }
 
-    # select the trip point depending on temp
-    $fanSpeed = 0
+    # Select the trip point depending on temp
+    $targetFanSpeed = 0
     foreach ($tripPoint in $tripPoints) {
         if ($cpuTemp -ge $tripPoint.temp) {
-            $fanSpeed = $tripPoint.speed
+            $targetFanSpeed = $tripPoint.speed
         }
     }
 
-    # clear console screen
+    # Clear console screen
     Clear-Host
 
-    # get current fan RPM for output
+    # Fan RPM output
     $fanSpeeds = Get-FanSpeeds
     if ($fanSpeeds -eq $null) {
         Write-Output "Failed to get fan speeds."
@@ -60,13 +68,18 @@ while ($true) {
         Write-Output "Fan speeds: $($fanSpeeds[0]) RPM, $($fanSpeeds[1]) RPM"
     }
 
-    # wait for 3 secs before the next check
-    Start-Sleep -Seconds 2
+    # Adjust fan speed with increments so it has acceleration
+    if ($currentFanSpeed -lt $targetFanSpeed) {
+        $currentFanSpeed = [math]::Min($currentFanSpeed + $accelerationFactor, $targetFanSpeed)
+        # Wait duration for ramping up
+        Start-Sleep -Seconds $rampUpDelay
+    } elseif ($currentFanSpeed -gt $targetFanSpeed) {
+        $currentFanSpeed = [math]::Max($currentFanSpeed - $accelerationFactor, $targetFanSpeed)
+        # Wait duration for slowing down
+        Start-Sleep -Seconds $rampDownDelay
+    }
 
-    # set fan speed
-    Set-FanSpeeds -speed $fanSpeed
-
-    # wait for 3 sec fan delay
-    Start-Sleep -Seconds 3
+    # Set fan speed
+    Set-FanSpeeds -speed $currentFanSpeed
 
 }
