@@ -19,7 +19,6 @@ $tripPoints = @(
     @{ temp = 70; speed = 55 },
     @{ temp = 75; speed = 69 },
     @{ temp = 85; speed = 75 }
-
 )
 
 # Acceleration Factors
@@ -29,7 +28,6 @@ $rampDownAccelerationFactor = 3
 # Adjustable Delay (in seconds)
 $rampUpDelay = 3
 $rampDownDelay = 6.9
-
 ```
 
 (only reacts to CPU temp as of now)
