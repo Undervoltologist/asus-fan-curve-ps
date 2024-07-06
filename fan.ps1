@@ -1,18 +1,20 @@
 # Fan Curve
 $tripPoints = @(
     @{ temp = 20; speed = 22 },
-    @{ temp = 60; speed = 40 },
+    @{ temp = 56; speed = 40 },
     @{ temp = 70; speed = 55 },
-    @{ temp = 80; speed = 80 },
-    @{ temp = 88; speed = 100 }
+    @{ temp = 75; speed = 69 },
+    @{ temp = 85; speed = 75 }
+
 )
 
-# Acceleration factor
-$accelerationFactor = 7
+# Acceleration Factors
+$rampUpAccelerationFactor = 7
+$rampDownAccelerationFactor = 3
 
-# Adjustable delay for ramping up and slowing down (in seconds)
-$rampUpDelay = 0
-$rampDownDelay = 4.5
+# Adjustable Delay (in seconds)
+$rampUpDelay = 3
+$rampDownDelay = 5
 
 # Getting CPU temp
 function Get-CPUTemp {
@@ -68,18 +70,17 @@ while ($true) {
         Write-Output "Fan speeds: $($fanSpeeds[0]) RPM, $($fanSpeeds[1]) RPM"
     }
 
-    # Adjust fan speed with increments so it has acceleration
+    # Adjust fan speed with separate increments
     if ($currentFanSpeed -lt $targetFanSpeed) {
-        $currentFanSpeed = [math]::Min($currentFanSpeed + $accelerationFactor, $targetFanSpeed)
-        # Wait duration for ramping up
+        $currentFanSpeed = [math]::Min($currentFanSpeed + $rampUpAccelerationFactor, $targetFanSpeed)
+        # Delay for ramping up
         Start-Sleep -Seconds $rampUpDelay
     } elseif ($currentFanSpeed -gt $targetFanSpeed) {
-        $currentFanSpeed = [math]::Max($currentFanSpeed - $accelerationFactor, $targetFanSpeed)
-        # Wait duration for slowing down
+        $currentFanSpeed = [math]::Max($currentFanSpeed - $rampDownAccelerationFactor, $targetFanSpeed)
+        # Delay for ramping down
         Start-Sleep -Seconds $rampDownDelay
     }
 
     # Set fan speed
     Set-FanSpeeds -speed $currentFanSpeed
-
 }
