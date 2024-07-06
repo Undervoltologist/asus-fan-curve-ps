@@ -13,7 +13,7 @@ $rampUpAccelerationFactor = 7
 $rampDownAccelerationFactor = 3
 
 # Adjustable Delay (in seconds)
-$rampUpDelay = 3
+$rampUpDelay = 1.5
 $rampDownDelay = 5
 
 # Getting CPU temp
