@@ -5,7 +5,7 @@ powershell script for setting a fan curve for asus laptops that don't have modes
 made using the fan control application at https://github.com/Karmel0x/AsusFanControl, since the author didn't need 
 fan curves but I did. 
 
-i may add new features that are useless in the future.
+I may add new features that are useless in the future.
 
 # usage
 extract the zip and run the bat file inside it, doesn't need admin.
@@ -15,21 +15,24 @@ you can adjust and add temp thresholds, fan speeds, acceleration, and the delay 
 # Fan Curve
 $tripPoints = @(
     @{ temp = 20; speed = 22 },
-    @{ temp = 60; speed = 40 },
+    @{ temp = 56; speed = 40 },
     @{ temp = 70; speed = 55 },
-    @{ temp = 80; speed = 80 },
-    @{ temp = 88; speed = 100 }
+    @{ temp = 75; speed = 69 },
+    @{ temp = 85; speed = 75 }
+
 )
 
-# Acceleration factor
-$accelerationFactor = 6
+# Acceleration Factors
+$rampUpAccelerationFactor = 7
+$rampDownAccelerationFactor = 3
 
-# Adjustable delay for ramping up and slowing down (in seconds)
-$rampUpDelay = 0
+# Adjustable Delay (in seconds)
+$rampUpDelay = 3
 $rampDownDelay = 6.9
+
 ```
 
-(only reacts to CPU temp)
+(only reacts to CPU temp as of now)
 
 # compatibility
 if your asus laptop has a fan health test in the myasus app, this will probably work.
