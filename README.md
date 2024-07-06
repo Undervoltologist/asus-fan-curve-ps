@@ -31,6 +31,6 @@ $rampDownDelay = 6.9
 (only reacts to CPU temp as of now)
 
 # compatibility
-if your asus laptop has a fan health test in the myasus app, this will probably work.
+if your asus laptop has a fan health test in the MyAsus app, this will most probably work. (it may not display fan speed on some models as they don't support it, but might still control the fans as they have the fan diagnosis in MyAsus)
 
 ![image](https://github.com/Undervoltologist/asus-fan-curve-ps/assets/93976452/1cbdc530-a477-4210-991e-a4efed3daaed)
